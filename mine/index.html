@@ -14,7 +14,20 @@
     3. 문서상에 보여야한다 
     memo (문서상에서 보여야 하는것도 확인을 하는 구나)
   -->
+  <!-- ^ 일단 이벤트를 걸 요소를 마크업 -->
+  <div id="root">
+    <div id="left"></div>
+    <div id="right"></div>
+  </div>
+  
+  
   <script>
+    const arr = [1,2,3,4,5];
+    const root = document.getElementById("root");
+    const leftButton = document.getElementById('left');
+    const rightButton = document.getElementById('right');
+    //  문서의 요소들 불러오기
+    
     // <!-- memo 함수 만들기
       //  이벤트가 일어날때 관련되는 모든 요소를 일단 적는다
     
@@ -23,9 +36,22 @@
       {
 
       };
+      /*
+        함수화가 어려운 부분은 이것이 무엇인지 모르기 때문
+        <!-- memo "무엇"을 "어떻게 하고 싶은지"를 사람말로 정리하면 편할듯
+        <!-- memo "무엇"이 변수가 되고 "어떻게 하고 싶은지"는 이벤트가 됨
+        하지만 확정된 부분이 있다면 간단해짐
         
-      arrHandler()
+        사고의 흐름
+        1. 어차피 트리거는 DOM에서 가져옴
+        2. 문서에서 가져오든 js에서 동적으로 만든 배열이든 어차피 배열임 
+      */ 
+      
+      
+        
+      arrHandler(leftButton, rightButton, arr, root, "click")
       // 함수 호출 안해놓고 안된다고 슬퍼하지 말기
+      
 
   </script>
   
