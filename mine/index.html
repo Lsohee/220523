@@ -27,13 +27,40 @@
     const leftButton = document.getElementById('left');
     const rightButton = document.getElementById('right');
     //  문서의 요소들 불러오기
+
+    root.addEventListener("click", function(event){
+      let eventTargetIdValue = event.target.id;
+      // 이건 무슨 뜻일까
+      // root를 클릭 했을때
+      // eventTargetIdValue 라는 변수를 선언하는데
+      // <!-- ? event.target.id가 뭐지?
+        // <!-- ^ 이벤트가 발생할 요소 반환
+          // console.log(this);
+          // <!--? 그러면 console찍었을때 나오는 this 가 root니까 this.id로 접근해도 될까?
+    })
+    // <!-- memo 이렇게 내가 익숙한 모습으로 먼저 쓴 다음에 좀더 유연한 모습의 함수로 만드는 것이 팁인듯
+    
     
     // <!-- memo 함수 만들기
       //  이벤트가 일어날때 관련되는 모든 요소를 일단 적는다
     
       function arrHandler(leftButton,rightButton,array,prarentNode,eventType)
       //나보다 함수나 매개변수의 이름을 길고 자세하게 정함 -> 나중에나 다른사람이 알아보기 쉬움 <!-- memo 나도 그렇게 할 것
-      {
+      { prarentNode.addEventListener(eventType,function(event){
+        // prarentNode에 이벤트 달고 그 이벤트 종류는 eventType이라는 변수고 함수는 event임
+
+        let eventTargetIdValue = event.target.id 
+        if(eventTargetIdValue === leftButton) {
+          console.log(`당신은 지금 ${leftButton} 라는 id값을 가지고 있는 요소를 선택했습니다.`);
+        }
+        if(eventTargetIdValue === rightButton){
+          console.log(`당신은 지금 ${rightButton}라는 id값을 가지고 있는 요소를 선택했습니다`)
+        }
+        if(eventTargetIdValue=== prarentNode.id){
+          console.log(`당신은 지금 ${prarentNode}의 id값입니다`)
+        }
+        
+      })
 
       };
       /*
@@ -49,7 +76,7 @@
       
       
         
-      arrHandler(leftButton, rightButton, arr, root, "click")
+      arrHandler("left", "right", arr, root, "click")
       // 함수 호출 안해놓고 안된다고 슬퍼하지 말기
       
 
