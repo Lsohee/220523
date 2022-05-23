@@ -16,18 +16,20 @@
   -->
   <!-- ^ 일단 이벤트를 걸 요소를 마크업 -->
   <div id="root">
-    <div id="left"></div>
-    <div id="right"></div>
+    <div id="inject-value"></div>
+    <button id="left">left</button>
+    <button id="right">right</button>
   </div>
   
   
   <script>
     const arr = [1,2,3,4,5];
     const root = document.getElementById("root");
+    const injectValue = document.getElementById("inject-value")
     const leftButton = document.getElementById('left');
     const rightButton = document.getElementById('right');
     //  문서의 요소들 불러오기
-
+/* 
     root.addEventListener("click", function(event){
       let eventTargetIdValue = event.target.id;
       // 이건 무슨 뜻일까
@@ -37,9 +39,9 @@
         // <!-- ^ 이벤트가 발생할 요소 반환
           // console.log(this);
           // <!--? 그러면 console찍었을때 나오는 this 가 root니까 this.id로 접근해도 될까?
-    })
+    });
     // <!-- memo 이렇게 내가 익숙한 모습으로 먼저 쓴 다음에 좀더 유연한 모습의 함수로 만드는 것이 팁인듯
-    
+  */  
     
     // <!-- memo 함수 만들기
       //  이벤트가 일어날때 관련되는 모든 요소를 일단 적는다
@@ -56,10 +58,14 @@
 
         const changeArrayIndex = (eventTarget)=> { // 화살표 함수군
           if(eventTarget === leftButton){
-            temp = arr[0];//첫번째 요소를 변수에 저장
-            arr.shift(); // 옮기고 싶은 요소, 즉 첫번째를 원래 자리에서 삭제
-            arr.push(temp);// 미리 저장해 두었던 배열의 첫번째 값이였던것을 마지막 원소로 추가
-            console.log(arr);
+            temp = array[0];//첫번째 요소를 변수에 저장
+            array.shift(); // 옮기고 싶은 요소, 즉 첫번째를 원래 자리에서 삭제
+            array.push(temp);// 미리 저장해 두었던 배열의 첫번째 값이였던것을 마지막 원소로 추가
+            console.log(array);
+
+            elementRemover();
+            elementAppender();
+            elementStyler();
           }
         }
         //  위의 코드는 왜 ...? 여기 있는 것임?rightButton에 있어야 하지 않나?
@@ -68,16 +74,47 @@
         
         
         if(eventTargetIdValue === leftButton) {
-          temp = arr[0]; //배열의 첫번째 원소를 임시로 저장
-          arr.shift(); // 배열의 첫번째 원소 삭제
-          arr.push(temp); //미리 저장해두었던 첫번째 원소값이였던 것을 매열 마지막에 추가
+          temp = array[0]; //배열의 첫번째 원소를 임시로 저장
+          array.shift(); // 배열의 첫번째 원소 삭제
+          array.push(temp); //미리 저장해두었던 첫번째 원소값이였던 것을 매열 마지막에 추가
+          elementRemover();
+          elementAppender();
+          elementStyler();
         }
         if(eventTargetIdValue === rightButton){
-          temp = arr[arr.length-1]; //배열의 마지막 원소 저장
-          arr.pop(); // 배열의 마지막 원소 삭제
-          arr.unshift(temp); // temp에 임시로 저장해둔 마지막 원소 였던 것을 배열의 첫번째에 추가
-          console.log(arr);// 꼭console 찍어서 확인할 것
+          temp = array[array.length-1]; //배열의 마지막 원소 저장
+          array.pop(); // 배열의 마지막 원소 삭제
+          array.unshift(temp); // temp에 임시로 저장해둔 마지막 원소 였던 것을 배열의 첫번째에 추가
+          console.log(array);// 꼭console 찍어서 확인할 것
         }
+
+        const elementRemover = () => {
+          while(injectValue.firstChild){
+            // while loop설정
+            // * injectValue라는 요소의 firstChild 즉 첫번째 자식이 true라면 혹은 존재한다면 반복문을 실행하라는 조건식
+            // <!--memo 저렇게 요소만 떡하니 써놓으면 저 요소가 존재할때나 true일 때라는 조건이 되는 구나! 궁금증 해결!
+              // 존재하지 않는 다면 while 반복문은 종료된다.
+              //<!--? while 과 for문의 차이점은?
+            // <!-- todo 횟수를 기준으로 반복하는 for() 문과 달리
+            // <!-- todo 조건에 부합한다면 무한정 반복하는 특징이 있다.
+            injectValue.removeChild(injectValue.firstChild);
+            // 만약에 injectValue의 첫번째 자식이 존재하면 그것을 삭제해줘
+          }
+        }
+
+        // 요소를 문서에 덧붙이는 함수
+        const elementAppender = () => {
+          array.forEach(element => {
+            const span = document.createElement('span');
+            span.textContent = element;
+            appendNode.appendChild(span);
+          });
+        }
+
+        const elementStyler = () => {
+          injectValue.firstChild.style.fontSize = "2rem";
+        }
+
 
 
         changeArrayIndex(eventTargetIdValue);
